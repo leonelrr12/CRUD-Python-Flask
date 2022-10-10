@@ -1,0 +1,71 @@
+{% include 'admin/header.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-header">
+          Datos del libro
+        </div>
+        <div class="card-body">
+          <form action="/admin/libros/guardar" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="txtName" class="form-label">Nombre:</label>
+              <input type="text"
+                class="form-control" name="txtName" id="txtName" aria-describedby="helpId" placeholder="Escriba nombre del libro">
+            </div>
+            <div class="mb-3">
+              <label for="txtImagen" class="form-label">Imagen:</label>
+              <input type="file"
+                class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId" placeholder="Imagen del libro">
+            </div>
+            <div class="mb-3">
+              <label for="txtURL" class="form-label">URL:</label>
+              <input type="text"
+                class="form-control" name="txtURL" id="txtURL" aria-describedby="helpId" placeholder="URL del libro">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agregar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">URL</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for libro in libros %}
+            <tr class="">
+              <td scope="row">{{ libro[0] }}</td>
+              <td>{{ libro[1] }}</td>
+              <td>
+                <img src="/images/{{ libro[2] }}" width="100" class="img-fluid rounded-top" alt="">
+              </td>
+              <td>
+                <a name="" id="" class="btn btn-success" href="{{ libro[3] }}" role="button">Enlace</a>
+              </td>
+              <td>
+                <form action="/admin/libros/borrar" method="post">
+                  <input type="hidden" name="txtID" id="txtID" value="{{ libro[0] }}">
+                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'admin/footer.html' %}
